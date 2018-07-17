@@ -72,6 +72,6 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 
 DEFAULT_FOLDER = fnh/keymaps
-
+SRC += twoaxis.c
 
 

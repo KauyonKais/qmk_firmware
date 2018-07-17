@@ -1,9 +1,9 @@
 #include "fnh.h"
-//#include "twoaxis.h"
+#include "twoaxis.h"
 #include <print.h>
 
 void pointing_device_task(void){
-    //dpad();
+    dpad();
 }
 
 

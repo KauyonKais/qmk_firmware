@@ -5,8 +5,8 @@
 #include "twoaxis.h"
 #include "pointing_device.h"
 #include "report.h"
+#include "action.h"
 #include "analog.h"
-#include "keymap.c"
 
 #include <print.h>
 struct ta_axis{

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "fnh.h"
-//#include "twoaxis.h"
+#include "twoaxis.h"
 //#include <print.h>
 #include "rgblight.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -112,34 +112,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
 };
 //static uint8_t ta_state=0;
-static uint16_t kc1 = KC_NO;
-static bool hasregistered=false;
 //static uint16_t kc2 = KC_NO;
 void matrix_scan_user(void){
-    if(!hasregistered){
-        register_code(kc1);
-        hasregistered=true;
-    }
 }
 
 
 uint32_t layer_state_set_user(uint32_t state) {
-    register_code(KC_B);
-    //uint8_t temp=biton32(state);
-    //set_ta_layer(temp);
+    uint8_t temp=biton32(state);
+    set_ta_layer(temp);
     switch (biton32(state)) {//biton32 returns highest significant bit
     case _BSE:
         clear_mods();
-        kc1 = KC_NO;
-        hasregistered= false;
         break;
     case _USD:
         break;
     case _SYB:
         break;
     case _CTL:
-        kc1 = KC_A;
-        hasregistered= false;
         break;
     default: //  for any other layers, or the default layer
         break;
