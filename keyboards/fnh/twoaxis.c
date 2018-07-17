@@ -13,41 +13,30 @@ struct ta_axis{
     int8_t x;
     int8_t y;
 };
-/*
-enum twoaxis_modes{
-    ta_mouse,
-    ta_scroll,
-    ta_dpad,
-    ta_number_of_modes //needed as last element, add new ones above
-};
 
-static uint8_t twoaxis_mode=0;
-void setmode(uint8_t mode){
-    if(mode>ta_number_of_modes-1)
-        return;
-    twoaxis_mode = mode;
-}
-*/
-#define TA_MULT 2
-static uint8_t deadzone = 2; //adjust as needed
-static int8_t readaxis(uint16_t axis){
-    int8_t reaxis = ((axis - 16) >> 5) - 15;
-    if(reaxis < 0){
-        if(reaxis < - deadzone ){
-            return reaxis + deadzone;
-        }else{
-            return 0;
-        }
-    }else if(reaxis > 0){
-        if(reaxis > deadzone ){
-            return reaxis - deadzone;
-        }else{
-            return 0;
-        }
+
+void twoaxis(int8_t x, int8_t y){
+    struct ta_axis axis = {x, y};
+
+    //expected way of things, not how they are rn
+    switch(joymap[ta_layer][0]){//TODO define TA_MOUSE and TA_SCROLL
+        case TA_NONE:
+            return;
+        case TA_MOUSE:
+            ta_mouse(axis);
+            break;
+        case TA_SCROLL:
+            ta_scroll(axis);
+            break;
+        default://Keycode
+            ta_dpad(axis);
+            break;
     }
-    return 0;
-    //return reaxis;
 }
+
+
+
+#define TA_MULT 2
 //uint8_t counter_ax = 0;
 static struct ta_axis read_stick_values(void){
 //mouseReport.x = 127 max -127 min

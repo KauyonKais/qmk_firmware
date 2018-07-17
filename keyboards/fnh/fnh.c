@@ -1,9 +1,39 @@
 #include "fnh.h"
 #include "twoaxis.h"
+#include "pointing_device.h"
+#include "report.h"
+#include "action.h"
+#include "analog.h"
 #include <print.h>
 
+static uint8_t deadzone = 2; //adjust as needed
+static int8_t readaxis(uint16_t axis){
+    int8_t reaxis = ((axis) >> 5);
+    if(reaxis < 0){
+        if(reaxis < - deadzone ){
+            return reaxis + deadzone;
+        }else{
+            return 0;
+        }
+    }else if(reaxis > 0){
+        if(reaxis > deadzone ){
+            return reaxis - deadzone;
+        }else{
+            return 0;
+        }
+    }
+    //return 0;
+    return reaxis;
+}
+static void read_stick_values(void){
+//mouseReport.x = 127 max -127 min
+    int8_t x = readaxis(analogRead(3));
+//mouseReport.y = 127 max -127 min
+    int8_t y = readaxis(analogRead(2));
+    twoaxis(x, y);//calls twoaxis entry point, agnostic from here
+}
 void pointing_device_task(void){
-    dpad();
+    read_stick_values();
 }
 
 

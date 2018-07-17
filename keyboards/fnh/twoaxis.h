@@ -13,7 +13,8 @@
 #define DPAD_D 3
 #define DPAD_R 4
 
-
+void twoaxis(int8_t x, int8_t y);
+enum twoaxis_modes;
 uint8_t twoaxis_as_dpad(void);
 void dpad(void);
 void twoaxis_as_scroll(void);
