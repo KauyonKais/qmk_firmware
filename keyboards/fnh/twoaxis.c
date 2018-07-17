@@ -151,8 +151,9 @@ uint8_t twoaxis_as_dpad(void){
 }
 
 
-static uint8_t joymap[5][4] = {
+static uint8_t joymap[6][4] = {
         {KC_U, KC_L, KC_R, KC_D},
+        {},
         {KC_W, KC_A, KC_S, KC_D},
         {},{},{}
 };

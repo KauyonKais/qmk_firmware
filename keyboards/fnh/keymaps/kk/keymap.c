@@ -38,8 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum fnh_layers {
   _BSE,
   _USD,
-  _GAM,
   _SYB,
+  _GAM,
   _CTL,
   _FUN
 };
