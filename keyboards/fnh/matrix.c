@@ -32,6 +32,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 
+#include "matrix_share.h"
+
 #  include "serial.h"
 
 #ifndef DEBOUNCE
