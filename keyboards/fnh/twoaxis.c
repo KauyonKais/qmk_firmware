@@ -63,7 +63,7 @@ static void ta_dpad(struct ta_axis axis) {
             matrix[5] |= ~(1<<5);
             break;
         case DPAD_R:
-            matrix[5] |= ~(1<<7);
+            matrix[5] |= ~(1<<0);
             break;
     }
     uint8_t dpad_state = 0;
@@ -82,7 +82,7 @@ static void ta_dpad(struct ta_axis axis) {
             matrix[5] |= (1<<5);
             break;
         case DPAD_R:
-            matrix[5] |= (1<<7);
+            matrix[5] |= (1<<0);
             break;
     }
 
