@@ -15,11 +15,23 @@ struct ta_axis{
 };
 
 
+static void ta_scroll(struct ta_axis axis) {
+    return;
+}
+static void ta_mouse( struct ta_axis axis) {
+    return;
+}
+static void ta_dpad(struct ta_axis axis) {
+    return;
+}
+#define TA_NONE 0
+#define TA_MOUSE 2
+#define TA_SCROLL 3
 void twoaxis(int8_t x, int8_t y){
     struct ta_axis axis = {x, y};
 
     //expected way of things, not how they are rn
-    switch(joymap[ta_layer][0]){//TODO define TA_MOUSE and TA_SCROLL
+    switch(0){//TODO read from keymap
         case TA_NONE:
             return;
         case TA_MOUSE:
@@ -34,61 +46,7 @@ void twoaxis(int8_t x, int8_t y){
     }
 }
 
-
-
-#define TA_MULT 2
-//uint8_t counter_ax = 0;
-static struct ta_axis read_stick_values(void){
-//mouseReport.x = 127 max -127 min
-    int8_t mx = readaxis(analogRead(3));
-    if(mx>127/TA_MULT){
-        mx=127;
-    }else if (mx < -127/TA_MULT){
-        mx=-127;
-    }else{
-        mx=mx*TA_MULT;
-    }
-    mx=mx*-1;
-    //modify as needed
-
-//mouseReport.y = 127 max -127 min
-    int8_t my = readaxis(analogRead(2));
-    if(my>127/TA_MULT){
-        my=127;
-    }else if (my < -127/TA_MULT){
-         my=-127;
-    }else{
-        my=my*TA_MULT;
-    }
-    //my=my*-1
-    //modify as needed
-    /*if(counter_ax<20){
-        counter_ax=counter_ax+1;
-    }else{
-        counter_ax=0;
-    print("y: ");
-        for (int i = 0; i < 8; ++i) {
-            if((my >> i)&0x1){
-                print("1");
-            }else{
-                print("0");
-            }
-        }print("\t");
-    print("x: ");
-    for (int i = 0; i < 8; ++i) {
-        if((mx >> i)&0x1){
-            print("1");
-        }else{
-            print("0");
-        }
-    }print("\n");*/
-
-    struct ta_axis r = {mx,my};
-    return r;
-    //TODO add DEF IF for raw/stretched/curved output
-    //TODO add DEF IF for mirroring x/y
-}
-
+/*
 void twoaxis_as_mouse(void){
     struct ta_axis  values = read_stick_values();
     report_mouse_t currentReport = {};
@@ -146,6 +104,7 @@ static uint8_t joymap[6][4] = {
         {KC_W, KC_A, KC_S, KC_D},
         {},{},{}
 };
+
 static uint8_t ta_layer=0;
 void set_ta_layer(uint8_t l){
     ta_layer=l;
@@ -176,4 +135,4 @@ void dpad(void){
         default:
             break;
     }
-}
+}*/
