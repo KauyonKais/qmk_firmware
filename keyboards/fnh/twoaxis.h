@@ -15,7 +15,7 @@
 
 void twoaxis(int8_t x, int8_t y);
 enum twoaxis_modes;
-uint8_t twoaxis_as_dpad(void);
+//uint8_t twoaxis_as_dpad();
 void dpad(void);
 void twoaxis_as_scroll(void);
 void twoaxis_as_mouse(void);

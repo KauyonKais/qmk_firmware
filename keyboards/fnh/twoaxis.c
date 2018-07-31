@@ -7,6 +7,7 @@
 #include "report.h"
 #include "action.h"
 #include "analog.h"
+#include "matrix.h"
 
 #include <print.h>
 struct ta_axis{
@@ -14,6 +15,33 @@ struct ta_axis{
     int8_t y;
 };
 
+static uint8_t ta_layer=0;
+
+void set_ta_layer(uint8_t l){
+    ta_layer=l;
+}
+
+static int8_t absolute(int8_t i){
+    uint8_t temp = i >> 7;
+    i ^= temp;
+    i += temp & 1;
+    return i;
+}
+static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
+    if(absolute(values.x)<5 && values.y>5) {
+        return DPAD_U;
+    }
+    if(absolute(values.x)>5 && values.y<-5) {
+        return DPAD_D;
+    }
+    if(values.x<-5 && absolute(values.y)<5) {
+        return DPAD_L;
+    }
+    if(values.x>5 && absolute(values.y)<5) {
+        return DPAD_R;
+    }
+    return  0;
+}
 
 static void ta_scroll(struct ta_axis axis) {
     return;
@@ -21,7 +49,45 @@ static void ta_scroll(struct ta_axis axis) {
 static void ta_mouse( struct ta_axis axis) {
     return;
 }
+static uint8_t last_dpad_state = 0;
 static void ta_dpad(struct ta_axis axis) {
+    switch (last_dpad_state){
+        case 0:
+            break;
+        case DPAD_U:
+            matrix[10] = 0;
+            break;
+        case DPAD_D:
+            matrix[38] = 0;
+            break;
+        case DPAD_L:
+            matrix[24] = 0;
+            break;
+        case DPAD_R:
+            matrix[26] = 0;
+            break;
+    }
+    uint8_t dpad_state = 0;
+    dpad_state = twoaxis_as_dpad(axis);
+    last_dpad_state = dpad_state;
+    switch (dpad_state){
+        case 0:
+            break;
+        case DPAD_U:
+            matrix[10] = 1;
+            break;
+        case DPAD_D:
+            matrix[38] = 1;
+            break;
+        case DPAD_L:
+            matrix[24] = 1;
+            break;
+        case DPAD_R:
+            matrix[26] = 1;
+            break;
+    }
+
+
     return;
 }
 #define TA_NONE 0
