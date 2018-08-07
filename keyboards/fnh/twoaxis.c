@@ -46,6 +46,8 @@ static void ta_scroll(struct ta_axis axis) {
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
+    register_code(KC_A);
+    unregister_code(KC_A);
     return;
 }
 static uint8_t last_dpad_state = 0;
