@@ -28,15 +28,19 @@ static int8_t absolute(int8_t i){
 }
 static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
     if(absolute(values.x)<5 && values.y>5) {
+        print("up");
         return DPAD_U;
     }
     if(absolute(values.x)>5 && values.y<-5) {
+        print("down");
         return DPAD_D;
     }
     if(values.x<-5 && absolute(values.y)<5) {
+        print("left");
         return DPAD_L;
     }
     if(values.x>5 && absolute(values.y)<5) {
+        print("right");
         return DPAD_R;
     }
     return  0;
@@ -46,8 +50,6 @@ static void ta_scroll(struct ta_axis axis) {
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
-    register_code(KC_A);
-    unregister_code(KC_A);
     return;
 }
 static uint8_t last_dpad_state = 0;
