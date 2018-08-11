@@ -62,13 +62,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BSE] = LAYOUT_dpad( \
     TD(QESC),  KC_G  ,  KC_E  ,  KC_R  ,  KC_W  ,             KC_Y    ,  KC_M  ,  KC_U  ,  KC_L  ,TD(SCBS), KC_7, KC_8, KC_9,  \
-    KC_D    ,  KC_S  ,  KC_T  ,  KC_F  ,  KC_A  ,             KC_I    ,  KC_J  ,  KC_N  ,  KC_O  , TD(HQT), KC_4, KC_5, KC_6,\
+    KC_D    ,  KC_S  ,  KC_T  ,  KC_F  ,  KC_A  ,             KC_I    ,  KC_J  ,  KC_N  ,  KC_O  , TD(HQT), KC_4,       KC_6,\
     MD_Z    ,  MD_X  ,  MD_C  ,  KC_V  ,  KC_B  ,             KC_K    ,  KC_P  , KC_COMM,  KC_DOT, KC_SLSH, KC_1, KC_2, KC_3,\
                       MO(_CTL), MD_SPC , LK_ENT ,             RESET  , LK_SPC, KC_NO \
   ),
   [_SYB] = LAYOUT_dpad( \
     KC_LPRN , KC_RPRN, KC_ASTR, KC_AMPR, KC_GRV ,             KC_PLUS ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0  , KC_A, KC_B, KC_C,\
-    KC_LBRC , KC_CIRC, KC_PERC, KC_DLR , KC_PIPE,             KC_EQL  ,  KC_4  ,  KC_5  ,  KC_6  , KC_RBRC, KC_D, KC_E, KC_F,\
+    KC_LBRC , KC_CIRC, KC_PERC, KC_DLR , KC_PIPE,             KC_EQL  ,  KC_4  ,  KC_5  ,  KC_6  , KC_RBRC, KC_D,       KC_F,\
     KC_LCBR , KC_HASH, KC_AT  , KC_EXLM, KC_TILD,             KC_MINS ,  KC_1  ,  KC_2  ,  KC_3  , KC_RCBR, KC_G, KC_H, KC_I,\
                        KC_TRNS, KC_TRNS, KC_TRNS,             KC_4    , KC_TRNS, KC_NO \
   )
@@ -85,6 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  };
 
 void matrix_init_user(void) {
+
 };
 //static uint8_t ta_state=0;
 //static uint16_t kc2 = KC_NO;
@@ -114,5 +115,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
+    matrix_print();
 	return true;
 }

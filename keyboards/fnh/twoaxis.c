@@ -40,7 +40,7 @@ static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here 
         return DPAD_L;
     }
     if(values.x>5 && absolute(values.y)<5) {
-        print("right");
+        //print("right");
         return DPAD_R;
     }
     return  0;
@@ -54,7 +54,7 @@ static void ta_mouse( struct ta_axis axis) {
 }
 static uint8_t last_dpad_state = 0;
 static void ta_dpad(struct ta_axis axis) {
-    switch (last_dpad_state){
+    /*switch (last_dpad_state){
         case 0:
             break;
         case DPAD_U:
@@ -69,7 +69,7 @@ static void ta_dpad(struct ta_axis axis) {
         case DPAD_R:
             matrix[5] |= ~(1<<0);
             break;
-    }
+    }*/
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
     last_dpad_state = dpad_state;
@@ -77,16 +77,16 @@ static void ta_dpad(struct ta_axis axis) {
         case 0:
             break;
         case DPAD_U:
-            matrix[4] |= (1<<6);
+            matrix[8] |= (1<<6);
             break;
         case DPAD_D:
-            matrix[6] |= (1<<6);
+            matrix[8] |= (1<<6);
             break;
         case DPAD_L:
-            matrix[5] |= (1<<5);
+            matrix[8] |= (1<<5);
             break;
         case DPAD_R:
-            matrix[5] |= (1<<0);
+            matrix[8] &= 0b00000100;
             break;
     }
 

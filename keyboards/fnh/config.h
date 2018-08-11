@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#define MATRIX_ROWS 8
+#define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 
 #define RGB_DI_PIN D4    // The pin the LED strip is connected to

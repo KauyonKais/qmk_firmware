@@ -30,7 +30,9 @@ static void read_stick_values(void){
     int8_t x = readaxis(analogRead(3));
 //mouseReport.y = 127 max -127 min
     int8_t y = readaxis(analogRead(2));
-    twoaxis(x, y);//calls twoaxis entry point, agnostic from here
+   // x=y;
+   // y=x;
+   twoaxis(x, y);//calls twoaxis entry point, agnostic from here
 }
 void pointing_device_task(void){
     read_stick_values();
