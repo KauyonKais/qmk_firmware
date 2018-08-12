@@ -28,19 +28,15 @@ static int8_t absolute(int8_t i){
 }
 static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
     if(absolute(values.x)<5 && values.y>5) {
-        print("up");
         return DPAD_U;
     }
     if(absolute(values.x)>5 && values.y<-5) {
-        print("down");
         return DPAD_D;
     }
     if(values.x<-5 && absolute(values.y)<5) {
-        print("left");
         return DPAD_L;
     }
     if(values.x>5 && absolute(values.y)<5) {
-        //print("right");
         return DPAD_R;
     }
     return  0;
