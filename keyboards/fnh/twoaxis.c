@@ -52,27 +52,12 @@ static void ta_scroll(struct ta_axis axis) {
 static void ta_mouse( struct ta_axis axis) {
     return;
 }
-static uint8_t last_dpad_state = 0;
 static void ta_dpad(struct ta_axis axis) {
-    /*switch (last_dpad_state){
-        case 0:
-            break;
-        case DPAD_U:
-            matrix[4] |= ~(1<<6);
-            break;
-        case DPAD_D:
-            matrix[6] |= ~(1<<6);
-            break;
-        case DPAD_L:
-            matrix[5] |= ~(1<<5);
-            break;
-        case DPAD_R:
-            matrix[5] |= ~(1<<0);
-            break;
-    }*/
+
+    //uint8_t row = 0;
+
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
-    last_dpad_state = dpad_state;
     switch (dpad_state){
         case 0:
             break;
@@ -100,7 +85,7 @@ void twoaxis(int8_t x, int8_t y){
     struct ta_axis axis = {x, y};
 
     //expected way of things, not how they are rn
-    switch(10){//TODO read from keymap
+    switch(10){//TODO read ta_state from keymap
         case TA_NONE:
             return;
         case TA_MOUSE:
