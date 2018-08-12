@@ -54,7 +54,7 @@ static void ta_mouse( struct ta_axis axis) {
 }
 static void ta_dpad(struct ta_axis axis) {
 
-    //uint8_t row = 0;
+    uint8_t row = 0;
 
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
@@ -62,19 +62,20 @@ static void ta_dpad(struct ta_axis axis) {
         case 0:
             break;
         case DPAD_U:
-            matrix[8] |= (1<<6);
+            row |= 0b01000000;
             break;
         case DPAD_D:
-            matrix[8] |= (1<<6);
+            row |= 0b00000010;
             break;
         case DPAD_L:
-            matrix[8] |= (1<<5);
+            row |= 0b00010000;
             break;
         case DPAD_R:
-            matrix[8] &= 0b00000100;
+            row |= 0b00001000;
             break;
     }
 
+    matrix[8] = row;
 
     return;
 }
