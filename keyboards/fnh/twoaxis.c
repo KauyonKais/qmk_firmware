@@ -26,6 +26,50 @@ static int8_t absolute(int8_t i){
     i += temp & 1;
     return i;
 }
+static void print_val(int8_t val){
+    if(true)
+        return;
+    if(val<0)
+        print("-");
+    val=absolute(val)/10;
+    switch (val){
+        case 0:
+            print("0");
+            break;
+        case 1:
+            print("10");
+            break;
+        case 2:
+            print("20");
+            break;
+        case 3:
+            print("30");
+            break;
+        case 4:
+            print("40");
+            break;
+        case 5:
+            print("50");
+            break;
+        case 6:
+            print("60");
+            break;
+        case 7:
+            print("70");
+            break;
+        case 8:
+            print("80");
+            break;
+        case 9:
+            print("90");
+            break;
+        case 10:
+            print("100");
+            break;
+        case 11:
+            print("110");
+    }
+}
 static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
     if(absolute(values.x)<5 && values.y>5) {
         return DPAD_U;
@@ -49,9 +93,13 @@ static void ta_mouse( struct ta_axis axis) {
     return;
 }
 static void ta_dpad(struct ta_axis axis) {
-
+    /*print("x: ");
+    print_val(axis.x);
+    print(" y: ");
+    print_val(axis.y);
+    print("\n");*/
     uint8_t row = 0;
-
+print_val(1);
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
     switch (dpad_state){
@@ -96,6 +144,7 @@ void twoaxis(int8_t x, int8_t y){
             break;
     }
 }
+
 
 /*
 void twoaxis_as_mouse(void){
