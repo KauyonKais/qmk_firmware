@@ -5,7 +5,7 @@
 #include "action.h"
 #include "analog.h"
 #include <print.h>
-static void print_val(uint8_t val){
+/*static void print_val(uint8_t val){
     switch (val/10){
         case 0:
             print("0");
@@ -92,13 +92,13 @@ static void print_val(uint8_t val){
             print("270");
             break;
     }
-}
+}*/
 static uint8_t deadzone = 2; //adjust as needed
 static int8_t readaxis(uint16_t axis){
-    int8_t reaxis = axis >> 2;
-    uint8_t test_val = axis >> 2;
-    print_val(test_val);
-    print("\n");
+    int8_t reaxis = (axis >> 2)-128;
+    //uint8_t test_val = axis >> 2;
+    //print_val(test_val);
+    //print("\n");
 
     if(reaxis < 0){
         if(reaxis < - deadzone ){
@@ -113,7 +113,7 @@ static int8_t readaxis(uint16_t axis){
             return 0;
         }
     }
-    return 0;
+    //return 0;
     return reaxis;
 }
 static void read_stick_values(void){
@@ -121,7 +121,6 @@ static void read_stick_values(void){
     int8_t x = readaxis(analogRead(3));
 //mouseReport.y = 127 max -127 min
     int8_t y = readaxis(analogRead(2));
-    print("\n");
    // x=y;
    // y=x;
 //   char temp [5];

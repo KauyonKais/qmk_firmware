@@ -27,8 +27,6 @@ static int8_t absolute(int8_t i){
     return i;
 }
 static void print_val(int8_t val){
-    if(true)
-        return;
     if(val<0)
         print("-");
     val=absolute(val)/10;
@@ -93,13 +91,12 @@ static void ta_mouse( struct ta_axis axis) {
     return;
 }
 static void ta_dpad(struct ta_axis axis) {
-    /*print("x: ");
+    print("x: ");
     print_val(axis.x);
     print(" y: ");
     print_val(axis.y);
-    print("\n");*/
+    print("\n");
     uint8_t row = 0;
-print_val(1);
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
     switch (dpad_state){
