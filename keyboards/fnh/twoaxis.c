@@ -68,7 +68,7 @@ static void print_val(int8_t val){
             print("110");
     }
 }
-static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
+static uint8_t twoaxis_as_dpad(struct ta_axis values){
     if(values.y > 36) {
         if(values.x > 36)
             return DPAD_UL;
@@ -112,25 +112,7 @@ static void ta_dpad(struct ta_axis axis) {
         count++;
     }
     uint8_t row = 0;
-    uint8_t dpad_state = 0;
-    dpad_state = twoaxis_as_dpad(axis);
-    switch (dpad_state){
-        case 0:
-            break;
-        case DPAD_U:
-            row |= 0b01000000;
-            break;
-        case DPAD_D:
-            row |= 0b00000010;
-            break;
-        case DPAD_L:
-            row |= 0b00010000;
-            break;
-        case DPAD_R:
-            row |= 0b00001000;
-            break;
-    }
-
+    row |= twoaxis_as_dpad(axis);;
     matrix[8] = row;
 
     return;
