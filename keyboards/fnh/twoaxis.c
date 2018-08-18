@@ -96,21 +96,16 @@ static void ta_scroll(struct ta_axis axis) {
 }
 static void ta_mouse( struct ta_axis axis) {
     return;
-}
+}/*
 static void ta_dpad(struct ta_axis axis) {
-    uint8_t row = 0;
-    row |= dpad_detect(axis);;
-    matrix[8] = row;
-}
 
-#define TA_NONE 0
-#define TA_MOUSE 2
-#define TA_SCROLL 3
+}*/
+
 void twoaxis(int8_t x, int8_t y, uint8_t id){
     struct ta_axis axis = {x, y};
-
+    uint8_t row = 0;
     //expected way of things, not how they are rn
-    switch(10){//TODO figure out how to read ta_state. Extra array?
+    switch(TA_DPAD){//TODO figure out how to read ta_state. Extra array?
         case TA_NONE:
             return;
         case TA_MOUSE:
@@ -119,9 +114,12 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
         case TA_SCROLL:
             ta_scroll(axis);
             break;
-        default://Keycode
-            ta_dpad(axis);
+        case TA_DPAD:
+            row |= dpad_detect(axis);
+            matrix[MATRIX_ORIGINAL_ROWS + id] = row;
             break;
+        default:
+            return;
     }
 }
 

@@ -16,6 +16,12 @@
 #define DPAD_D  0b00000010
 #define DPAD_DR 0b00000001
 
+#define TA_NONE 0
+#define TA_MOUSE 2
+#define TA_SCROLL 3
+#define TA_DPAD 4
+#define TA_ROTARY 5
+
 void twoaxis(int8_t x, int8_t y, uint8_t id);
 enum twoaxis_modes;
 void dpad(void);
