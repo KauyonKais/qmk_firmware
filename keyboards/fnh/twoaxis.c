@@ -69,19 +69,27 @@ static void print_val(int8_t val){
     }
 }
 static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here is shitty
-    if(absolute(values.x)<5 && values.y>5) {
+    if(values.y > 36) {
+        if(values.x > 36)
+            return DPAD_UL;
+        if(values.x < -36)
+            return DPAD_UR;
         return DPAD_U;
     }
-    if(absolute(values.x)>5 && values.y<-5) {
+    if(values.y < -36) {
+        if(values.x > 36)
+            return DPAD_DL;
+        if(values.x < -36)
+            return DPAD_DR;
         return DPAD_D;
     }
-    if(values.x<-5 && absolute(values.y)<5) {
+    if(values.x > 36) {
         return DPAD_L;
     }
-    if(values.x>5 && absolute(values.y)<5) {
+    if(values.x < -36) {
         return DPAD_R;
     }
-    return  0;
+    return  DPAD_C;
 }
 
 static void ta_scroll(struct ta_axis axis) {
@@ -91,12 +99,18 @@ static void ta_scroll(struct ta_axis axis) {
 static void ta_mouse( struct ta_axis axis) {
     return;
 }
+static uint8_t count = 0;
 static void ta_dpad(struct ta_axis axis) {
-    /*print("x: ");
+    if(count>253){
+    print("x: ");
     print_val(axis.x);
     print(" y: ");
     print_val(axis.y);
-    print("\n");*/
+    print("\n");
+    count=0;
+    }else{
+        count++;
+    }
     uint8_t row = 0;
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
@@ -128,7 +142,7 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
     struct ta_axis axis = {x, y};
 
     //expected way of things, not how they are rn
-    switch(10){//TODO read ta_state from keymap
+    switch(10){//TODO figure out how to read ta_state. Extra array?
         case TA_NONE:
             return;
         case TA_MOUSE:
