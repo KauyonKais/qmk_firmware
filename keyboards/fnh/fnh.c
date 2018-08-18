@@ -126,7 +126,7 @@ static void read_stick_values(void){
 //   char temp [5];
 //   sprintf(temp, "%i", x);
 //   print(temp);
-   twoaxis(x, y);//calls twoaxis entry point, agnostic from here
+   twoaxis(x, y, 0);//calls twoaxis entry point, agnostic from here
 }
 void pointing_device_task(void){
     read_stick_values();

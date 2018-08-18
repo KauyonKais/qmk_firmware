@@ -85,17 +85,18 @@ static uint8_t twoaxis_as_dpad(struct ta_axis values){//TODO the detection here 
 }
 
 static void ta_scroll(struct ta_axis axis) {
+    print_val(1); //TODO delet this
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
     return;
 }
 static void ta_dpad(struct ta_axis axis) {
-    print("x: ");
+    /*print("x: ");
     print_val(axis.x);
     print(" y: ");
     print_val(axis.y);
-    print("\n");
+    print("\n");*/
     uint8_t row = 0;
     uint8_t dpad_state = 0;
     dpad_state = twoaxis_as_dpad(axis);
@@ -123,7 +124,7 @@ static void ta_dpad(struct ta_axis axis) {
 #define TA_NONE 0
 #define TA_MOUSE 2
 #define TA_SCROLL 3
-void twoaxis(int8_t x, int8_t y){
+void twoaxis(int8_t x, int8_t y, uint8_t id){
     struct ta_axis axis = {x, y};
 
     //expected way of things, not how they are rn
