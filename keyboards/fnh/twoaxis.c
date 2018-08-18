@@ -19,7 +19,7 @@ static uint8_t ta_layer=0;
 void set_ta_layer(uint8_t l){
     ta_layer=l;
 }
-
+/*
 static int8_t absolute(int8_t i){
     uint8_t temp = i >> 7;
     i ^= temp;
@@ -68,7 +68,11 @@ static void print_val(int8_t val){
             print("110");
     }
 }
-static uint8_t twoaxis_as_dpad(struct ta_axis values){
+*/
+static uint8_t dpad_detect(struct ta_axis values){
+    if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
+        return DPAD_C;
+    }
     if(values.y > 36) {
         if(values.x > 36)
             return DPAD_UL;
@@ -89,30 +93,18 @@ static uint8_t twoaxis_as_dpad(struct ta_axis values){
     if(values.x < -36) {
         return DPAD_R;
     }
-    return  DPAD_C;
+    return DPAD_C;
 }
 
 static void ta_scroll(struct ta_axis axis) {
-    print_val(1); //TODO delet this
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
     return;
 }
-static uint8_t count = 0;
 static void ta_dpad(struct ta_axis axis) {
-    if(count>253){
-    print("x: ");
-    print_val(axis.x);
-    print(" y: ");
-    print_val(axis.y);
-    print("\n");
-    count=0;
-    }else{
-        count++;
-    }
     uint8_t row = 0;
-    row |= twoaxis_as_dpad(axis);;
+    row |= dpad_detect(axis);;
     matrix[8] = row;
 
     return;

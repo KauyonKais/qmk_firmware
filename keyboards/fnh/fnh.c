@@ -5,6 +5,15 @@
 #include "action.h"
 #include "analog.h"
 #include <print.h>
+
+
+#ifndef TA_X_ADJUST
+#define TA_X_ADJUST 0
+#endif
+#ifndef TA_Y_ADJUST
+#define TA_Y_ADJUST 20
+#endif
+
 /*static void print_val(uint8_t val){
     switch (val/10){
         case 0:
@@ -126,7 +135,7 @@ static void read_stick_values(void){
 //   char temp [5];
 //   sprintf(temp, "%i", x);
 //   print(temp);
-   twoaxis(-x, y, 0);//calls twoaxis entry point, agnostic from here
+   twoaxis(-x + TA_X_ADJUST, y + TA_Y_ADJUST, 0);//calls twoaxis entry point, agnostic from here
    //-x because my x is mirrored for some reason. This might depend on the device used
 }
 void pointing_device_task(void){
