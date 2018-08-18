@@ -21,4 +21,3 @@ enum twoaxis_modes;
 void dpad(void);
 void twoaxis_as_scroll(void);
 void twoaxis_as_mouse(void);
-void set_ta_layer(uint8_t);

@@ -14,11 +14,6 @@ struct ta_axis{
     int8_t y;
 };
 
-static uint8_t ta_layer=0;
-
-void set_ta_layer(uint8_t l){
-    ta_layer=l;
-}
 /*
 static int8_t absolute(int8_t i){
     uint8_t temp = i >> 7;
@@ -106,9 +101,8 @@ static void ta_dpad(struct ta_axis axis) {
     uint8_t row = 0;
     row |= dpad_detect(axis);;
     matrix[8] = row;
-
-    return;
 }
+
 #define TA_NONE 0
 #define TA_MOUSE 2
 #define TA_SCROLL 3
