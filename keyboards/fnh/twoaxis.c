@@ -20,11 +20,11 @@ static int8_t absolute(int8_t i){
     i ^= temp;
     i += temp & 1;
     return i;
-}
-static void print_val(int8_t val){
+}*//*
+static void print_val(uint8_t val){
     if(val<0)
         print("-");
-    val=absolute(val)/10;
+    //val=absolute(val)/10;
     switch (val){
         case 0:
             print("0");
@@ -62,8 +62,7 @@ static void print_val(int8_t val){
         case 11:
             print("110");
     }
-}
-*/
+}*/
 static uint8_t dpad_detect(struct ta_axis values){
     if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
         return DPAD_C;
@@ -92,20 +91,24 @@ static uint8_t dpad_detect(struct ta_axis values){
 }
 
 static void ta_scroll(struct ta_axis axis) {
+    print("I'm a scroll roll\n");
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
+    print("I'm a mouse boop\n");
     return;
 }/*
 static void ta_dpad(struct ta_axis axis) {
 
 }*/
+uint8_t ta_mode = TA_NONE;
 
 void twoaxis(int8_t x, int8_t y, uint8_t id){
     struct ta_axis axis = {x, y};
+    //print_val(ta_mode);
     uint8_t row = 0;
     //expected way of things, not how they are rn
-    switch(TA_DPAD){//TODO figure out how to read ta_state. Extra array?
+    switch(ta_mode){//TODO figure out how to read ta_state. Extra array?
         case TA_NONE:
             return;
         case TA_MOUSE:

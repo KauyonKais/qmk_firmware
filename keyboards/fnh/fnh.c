@@ -125,7 +125,7 @@ static int8_t readaxis(uint16_t axis){
     //return 0;
     return reaxis;
 }
-static void read_stick_values(void){
+void twoaxis_task(void){
 //mouseReport.x = 127 max -127 min
     int8_t x = readaxis(analogRead(3));
 //mouseReport.y = 127 max -127 min
@@ -141,6 +141,7 @@ static void read_stick_values(void){
 void pointing_device_task(void){
     read_stick_values();
 }
+
 
 
 #ifdef SWAP_HANDS_ENABLE

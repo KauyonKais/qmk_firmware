@@ -23,7 +23,9 @@
 #define TA_ROTARY 5
 
 void twoaxis(int8_t x, int8_t y, uint8_t id);
-enum twoaxis_modes;
+extern uint8_t ta_mode;
 void dpad(void);
 void twoaxis_as_scroll(void);
 void twoaxis_as_mouse(void);
+
+//TODO add this to keyboard.c as twoaxis task or something
