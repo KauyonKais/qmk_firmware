@@ -37,6 +37,6 @@
         { KC_NO, D01, KC_NO, D10, D12, KC_NO, D21, KC_NO}\
     }
 #include "quantum.h"
-
+#include "twoaxis.h"
 
 #endif

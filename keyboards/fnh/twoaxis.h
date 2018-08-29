@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "pointing_device.h"
 #include <stdint.h>
 
 #define DPAD_C  0b00000000
@@ -22,8 +23,9 @@
 #define TA_DPAD 4
 #define TA_ROTARY 5
 
+void twoaxis_task(void);
 void twoaxis(int8_t x, int8_t y, uint8_t id);
-extern uint8_t ta_mode;
+void ta_setmode(uint8_t ta_mode);
 void dpad(void);
 void twoaxis_as_scroll(void);
 void twoaxis_as_mouse(void);

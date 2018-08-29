@@ -1,5 +1,4 @@
 #include "fnh.h"
-#include "twoaxis.h"
 #include "pointing_device.h"
 #include "report.h"
 #include "action.h"
@@ -137,10 +136,10 @@ void twoaxis_task(void){
 //   print(temp);
    twoaxis(-x + TA_X_ADJUST, y + TA_Y_ADJUST, 0);//calls twoaxis entry point, agnostic from here
    //-x because my x is mirrored for some reason. This might depend on the device used
-}
+}/*
 void pointing_device_task(void){
     read_stick_values();
-}
+}*/
 
 
 

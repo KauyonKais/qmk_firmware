@@ -3,7 +3,6 @@
 //
 
 #include "twoaxis.h"
-#include "pointing_device.h"
 #include "report.h"
 #include "action.h"
 #include "analog.h"
@@ -96,19 +95,34 @@ static void ta_scroll(struct ta_axis axis) {
 }
 static void ta_mouse( struct ta_axis axis) {
     print("I'm a mouse boop\n");
+   // struct ta_axis  values = read_stick_values();
+    report_mouse_t currentReport = {};
+    currentReport = pointing_device_get_report();
+    //shifting and transferring the info to the mouse report variable
+    currentReport.x=axis.x;
+    currentReport.y=axis.y;
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
     return;
 }/*
 static void ta_dpad(struct ta_axis axis) {
 
 }*/
-uint8_t ta_mode = TA_NONE;
+static uint8_t ta_mode = TA_NONE;
+
+void ta_setmode(uint8_t mode){
+    ta_mode=mode;
+}
 
 void twoaxis(int8_t x, int8_t y, uint8_t id){
+    if(!(id<TA_INPUTS))
+        return;
+
     struct ta_axis axis = {x, y};
     //print_val(ta_mode);
     uint8_t row = 0;
     //expected way of things, not how they are rn
-    switch(ta_mode){//TODO figure out how to read ta_state. Extra array?
+    switch(ta_mode){
         case TA_NONE:
             return;
         case TA_MOUSE:
@@ -119,7 +133,7 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
             break;
         case TA_DPAD:
             row |= dpad_detect(axis);
-            matrix[MATRIX_ORIGINAL_ROWS + id] = row;
+            matrix[MATRIX_ROWS - TA_INPUTS + id] = row;
             break;
         default:
             return;

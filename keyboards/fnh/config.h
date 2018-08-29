@@ -36,6 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
+#define TWOAXIS_ENABLE
+#define TA_INPUTS 1
+
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 8
 // This is so the twoaxis feature can automatically find the relevant rows

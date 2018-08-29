@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "fnh.h"
 #include "rgblight.h"
-#include "twoaxis.h"
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -84,8 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  };
 
 void matrix_init_user(void) {
-
+    ta_setmode(TA_DPAD);
 };
+
 void matrix_scan_user(void){
 }
 
@@ -93,15 +93,13 @@ void matrix_scan_user(void){
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {//biton32 returns highest significant bit
     case _BSE:
-        print("bse\n");
-        ta_mode = TA_DPAD;
+        ta_setmode(TA_DPAD);
         clear_mods();
         break;
     case _USD:
         break;
     case _SYB:
-        print("syb\n");
-        ta_mode = TA_MOUSE;
+        ta_setmode(TA_MOUSE);
         break;
     case _CTL:
         break;
