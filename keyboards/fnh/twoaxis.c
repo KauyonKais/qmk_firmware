@@ -90,7 +90,13 @@ static uint8_t dpad_detect(struct ta_axis values){
 }
 
 static void ta_scroll(struct ta_axis axis) {
-    print("I'm a scroll roll\n");
+    report_mouse_t currentReport = {};
+    currentReport = pointing_device_get_report();
+    //shifting and transferring the info to the mouse report variable
+    currentReport.h =  axis.x / TA_SCROLL_THROTTLE;
+    currentReport.v = -axis.y / TA_SCROLL_THROTTLE;
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
@@ -99,15 +105,9 @@ static void ta_mouse( struct ta_axis axis) {
     //shifting and transferring the info to the mouse report variable
     currentReport.x = axis.x / TA_MOUSE_THROTTLE;
     currentReport.y = axis.y / TA_MOUSE_THROTTLE;
-//    currentReport.x &= 0b11100000;
-//    currentReport.y &= 0b11100000;
     pointing_device_set_report(currentReport);
     pointing_device_send();
-    return;
-}/*
-static void ta_dpad(struct ta_axis axis) {
-
-}*/
+}
 static uint8_t ta_mode = TA_NONE;
 
 void ta_setmode(uint8_t mode){
@@ -117,15 +117,12 @@ void ta_setmode(uint8_t mode){
 void twoaxis(int8_t x, int8_t y, uint8_t id){
     if(!(id<TA_INPUTS))
         return;
-
+    static uint8_t row;
     if(x < TA_DEADZONE && x > -TA_DEADZONE)
         x=0;
     if(y < TA_DEADZONE && y > -TA_DEADZONE)
         y=0;
     struct ta_axis axis = {x, y};
-    //print_val(ta_mode);
-    uint8_t row = 0;
-    //expected way of things, not how they are rn
     switch(ta_mode){
         case TA_NONE:
             return;
@@ -136,6 +133,7 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
             ta_scroll(axis);
             break;
         case TA_DPAD:
+            row = 0;
             row |= dpad_detect(axis);
             matrix[MATRIX_ROWS - TA_INPUTS + id] = row;
             break;

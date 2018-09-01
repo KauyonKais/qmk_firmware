@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  };
 
 void matrix_init_user(void) {
-    ta_setmode(TA_MOUSE);
+    ta_setmode(TA_SCROLL);
 };
 
 
@@ -98,7 +98,7 @@ void matrix_init_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {//biton32 returns highest significant bit
     case _BSE:
-        ta_setmode(TA_MOUSE);
+        ta_setmode(TA_SCROLL);
         clear_mods();
         break;
     case _USD:
