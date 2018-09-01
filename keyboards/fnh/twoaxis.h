@@ -31,6 +31,9 @@
 #ifndef TA_DPAD_SIDE
 #   define TA_DPAD_SIDE 75
 #endif
+#ifndef TA_MOUSE_THROTTLE
+# define TA_MOUSE_THROTTLE 3
+#endif
 
 void twoaxis_task(void);
 void twoaxis(int8_t x, int8_t y, uint8_t id);
@@ -42,7 +45,8 @@ void twoaxis_as_mouse(void);
 // TODO:
 // rework matrix so it doesn't break everything
 // deadzone
-// hitboxes for dpad8
 // mouse and scroll
 // rotary
 // document everything (HAH AS IF)
+
+// DONE  hitboxes for dpad8

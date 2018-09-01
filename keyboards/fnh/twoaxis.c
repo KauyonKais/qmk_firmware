@@ -101,10 +101,10 @@ static void ta_mouse( struct ta_axis axis) {
     //shifting and transferring the info to the mouse report variable
     //axis.x &= 0b11100000;
     axis.y &= 0b11100000;
-    currentReport.x = axis.x / 3;
+    currentReport.x = axis.x / TA_MOUSE_THROTTLE;
     print_val(currentReport.x);
     print("\n");
-    currentReport.y = axis.y / 3;
+    currentReport.y = axis.y / TA_MOUSE_THROTTLE;
 //    currentReport.x &= 0b11100000;
 //    currentReport.y &= 0b11100000;
     pointing_device_set_report(currentReport);
