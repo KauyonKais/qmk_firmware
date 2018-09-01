@@ -4,8 +4,6 @@
 
 #include "twoaxis.h"
 #include "report.h"
-#include "action.h"
-#include "analog.h"
 #include "matrix_share.h"
 #include "pointing_device.h"
 #include <print.h>
@@ -13,7 +11,7 @@ struct ta_axis{
     int8_t x;
     int8_t y;
 };
-
+/*
 static int8_t absolute(int8_t i){
     uint8_t temp = i >> 7;
     i ^= temp;
@@ -61,7 +59,7 @@ static void print_val(int8_t val){
         case 11:
             print("110");
     }
-}
+}*/
 static uint8_t dpad_detect(struct ta_axis values){
     /*if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
         return DPAD_C;
@@ -99,11 +97,7 @@ static void ta_mouse( struct ta_axis axis) {
     report_mouse_t currentReport = {};
     currentReport = pointing_device_get_report();
     //shifting and transferring the info to the mouse report variable
-    //axis.x &= 0b11100000;
-    axis.y &= 0b11100000;
     currentReport.x = axis.x / TA_MOUSE_THROTTLE;
-    print_val(currentReport.x);
-    print("\n");
     currentReport.y = axis.y / TA_MOUSE_THROTTLE;
 //    currentReport.x &= 0b11100000;
 //    currentReport.y &= 0b11100000;
