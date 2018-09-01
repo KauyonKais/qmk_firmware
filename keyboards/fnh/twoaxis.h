@@ -5,7 +5,7 @@
 #pragma once
 
 #include <stdint.h>
-
+//DPAD positions
 #define DPAD_C  0b00000000
 #define DPAD_UL 0b10000000
 #define DPAD_U  0b01000000
@@ -15,12 +15,22 @@
 #define DPAD_DL 0b00000100
 #define DPAD_D  0b00000010
 #define DPAD_DR 0b00000001
-
+// Twoaxis modes
 #define TA_NONE 0
 #define TA_MOUSE 2
 #define TA_SCROLL 3
 #define TA_DPAD 4
 #define TA_ROTARY 5
+//standard values
+#ifndef TA_DEADZONE
+#   define TA_DEADZONE 20
+#endif
+#ifndef TA_DPAD_CORNER
+#   define TA_DPAD_CORNER 90
+#endif
+#ifndef TA_DPAD_SIDE
+#   define TA_DPAD_SIDE 75
+#endif
 
 void twoaxis_task(void);
 void twoaxis(int8_t x, int8_t y, uint8_t id);
@@ -32,5 +42,7 @@ void twoaxis_as_mouse(void);
 // TODO:
 // rework matrix so it doesn't break everything
 // deadzone
+// hitboxes for dpad8
 // mouse and scroll
 // rotary
+// document everything (HAH AS IF)

@@ -63,27 +63,29 @@ static void print_val(int8_t val){
     }
 }
 static uint8_t dpad_detect(struct ta_axis values){
-    if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
+    /*if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
         return DPAD_C;
-    }
-    if(values.y > 36) {
-        if(values.x > 36)
+    }*/
+    if(values.y > (127-TA_DPAD_CORNER)) {
+        if(values.x > (127-TA_DPAD_CORNER))
             return DPAD_UL;
-        if(values.x < -36)
+        if(values.x < -(127-TA_DPAD_CORNER))
             return DPAD_UR;
-        return DPAD_U;
+        if(values.y > (127-TA_DPAD_SIDE))
+            return DPAD_U;
     }
-    if(values.y < -36) {
-        if(values.x > 36)
+    if(values.y < -(127-TA_DPAD_CORNER)) {
+        if(values.x > (127-TA_DPAD_CORNER))
             return DPAD_DL;
-        if(values.x < -36)
+        if(values.x < -(127-TA_DPAD_CORNER))
             return DPAD_DR;
-        return DPAD_D;
+        if(values.x > (127-TA_DPAD_SIDE))
+            return DPAD_D;
     }
-    if(values.x > 36) {
+    if(values.x > (127-TA_DPAD_SIDE)) {
         return DPAD_L;
     }
-    if(values.x < -36) {
+    if(values.x < -(127-TA_DPAD_SIDE)) {
         return DPAD_R;
     }
     return DPAD_C;
@@ -99,10 +101,10 @@ static void ta_mouse( struct ta_axis axis) {
     //shifting and transferring the info to the mouse report variable
     //axis.x &= 0b11100000;
     axis.y &= 0b11100000;
-    currentReport.x = axis.x /3;
+    currentReport.x = axis.x / 3;
     print_val(currentReport.x);
     print("\n");
-    currentReport.y = axis.y /3;
+    currentReport.y = axis.y / 3;
 //    currentReport.x &= 0b11100000;
 //    currentReport.y &= 0b11100000;
     pointing_device_set_report(currentReport);
@@ -122,6 +124,10 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
     if(!(id<TA_INPUTS))
         return;
 
+    if(x < TA_DEADZONE && x > -TA_DEADZONE)
+        x=0;
+    if(y < TA_DEADZONE && y > -TA_DEADZONE)
+        y=0;
     struct ta_axis axis = {x, y};
     //print_val(ta_mode);
     uint8_t row = 0;
