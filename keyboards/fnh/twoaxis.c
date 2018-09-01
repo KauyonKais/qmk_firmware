@@ -7,23 +7,23 @@
 #include "action.h"
 #include "analog.h"
 #include "matrix_share.h"
+#include "pointing_device.h"
 #include <print.h>
 struct ta_axis{
     int8_t x;
     int8_t y;
 };
 
-/*
 static int8_t absolute(int8_t i){
     uint8_t temp = i >> 7;
     i ^= temp;
     i += temp & 1;
     return i;
-}*//*
-static void print_val(uint8_t val){
+}
+static void print_val(int8_t val){
     if(val<0)
         print("-");
-    //val=absolute(val)/10;
+    val=absolute(val);//10;
     switch (val){
         case 0:
             print("0");
@@ -61,7 +61,7 @@ static void print_val(uint8_t val){
         case 11:
             print("110");
     }
-}*/
+}
 static uint8_t dpad_detect(struct ta_axis values){
     if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
         return DPAD_C;
@@ -94,13 +94,17 @@ static void ta_scroll(struct ta_axis axis) {
     return;
 }
 static void ta_mouse( struct ta_axis axis) {
-    print("I'm a mouse boop\n");
-   // struct ta_axis  values = read_stick_values();
     report_mouse_t currentReport = {};
     currentReport = pointing_device_get_report();
     //shifting and transferring the info to the mouse report variable
-    currentReport.x=axis.x;
-    currentReport.y=axis.y;
+    //axis.x &= 0b11100000;
+    axis.y &= 0b11100000;
+    currentReport.x = axis.x /3;
+    print_val(currentReport.x);
+    print("\n");
+    currentReport.y = axis.y /3;
+//    currentReport.x &= 0b11100000;
+//    currentReport.y &= 0b11100000;
     pointing_device_set_report(currentReport);
     pointing_device_send();
     return;

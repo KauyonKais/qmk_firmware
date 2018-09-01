@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "pointing_device.h"
 #include <stdint.h>
 
 #define DPAD_C  0b00000000
@@ -30,4 +29,8 @@ void dpad(void);
 void twoaxis_as_scroll(void);
 void twoaxis_as_mouse(void);
 
-//TODO add this to keyboard.c as twoaxis task or something
+// TODO:
+// rework matrix so it doesn't break everything
+// deadzone
+// mouse and scroll
+// rotary

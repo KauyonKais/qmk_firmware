@@ -129,6 +129,8 @@ void twoaxis_task(void){
     int8_t x = readaxis(analogRead(3));
 //mouseReport.y = 127 max -127 min
     int8_t y = readaxis(analogRead(2));
+
+//shifting and transferring the info to the mouse report variable
    // x=y;
    // y=x;
 //   char temp [5];
@@ -140,7 +142,6 @@ void twoaxis_task(void){
 void pointing_device_task(void){
     read_stick_values();
 }*/
-
 
 
 #ifdef SWAP_HANDS_ENABLE
