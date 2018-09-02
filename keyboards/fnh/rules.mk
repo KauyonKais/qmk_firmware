@@ -1,6 +1,6 @@
 SRC += matrix.c \
 	   split_util.c \
-	   serial.c
+	   serial.c \
 
 # MCU name
 MCU = atmega32u4
@@ -68,10 +68,8 @@ USE_I2C = no
 POINTING_DEVICE_ENABLE = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+TWOAXIS_ENABLE = yes
 
 CUSTOM_MATRIX = yes
 
 DEFAULT_FOLDER = fnh/keymaps
-SRC += twoaxis.c
-
-

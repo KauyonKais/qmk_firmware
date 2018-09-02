@@ -4,10 +4,7 @@
 
 #include "twoaxis.h"
 #include "report.h"
-#include "matrix_share.h"
 #include "pointing_device.h"
-
-#include <print.h>
 
 struct ta_axis{
     int8_t x;
@@ -15,9 +12,7 @@ struct ta_axis{
 };
 
 static uint8_t dpad_detect(struct ta_axis values){
-    /*if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
-        return DPAD_C;
-    }*/
+
     if(values.y > (127-TA_DPAD_CORNER)) {
         if(values.x > (127-TA_DPAD_CORNER))
             return DPAD_UL;
@@ -31,7 +26,7 @@ static uint8_t dpad_detect(struct ta_axis values){
             return DPAD_DL;
         if(values.x < -(127-TA_DPAD_CORNER))
             return DPAD_DR;
-        if(values.x > (127-TA_DPAD_SIDE))
+        if(values.y < (127-TA_DPAD_SIDE))
             return DPAD_D;
     }
     if(values.x > (127-TA_DPAD_SIDE)) {
@@ -57,8 +52,8 @@ static void ta_mouse( struct ta_axis axis) {
     report_mouse_t currentReport = {};
     currentReport = pointing_device_get_report();
     //shifting and transferring the info to the mouse report variable
-    currentReport.x = axis.x / TA_MOUSE_THROTTLE;
-    currentReport.y = axis.y / TA_MOUSE_THROTTLE;
+    currentReport.x = ((axis.x) / TA_MOUSE_THROTTLE);
+    currentReport.y = ((axis.y) / TA_MOUSE_THROTTLE);
     pointing_device_set_report(currentReport);
     pointing_device_send();
 }
@@ -73,19 +68,26 @@ void ta_setmode(uint8_t mode){
     ta_mode=mode;
 }
 
+int8_t ta_convert_10bit(uint16_t val){
+    return (val>>2)-128;
+}
+
+int8_t ta_convert_12bit(uint16_t val){
+    return (val>>4)-128;
+}
+
 void twoaxis(int8_t x, int8_t y, uint8_t id){
     //To make sure we don't start writing in weird places
     if(!(id<TA_INPUTS))
         return;
 
-    static uint8_t row;
-    //
     if(x < TA_DEADZONE && x > -TA_DEADZONE)
         x=0;
     if(y < TA_DEADZONE && y > -TA_DEADZONE)
         y=0;
-
     struct ta_axis axis = {x, y};
+
+    static matrix_row_t row;
     switch(ta_mode){
         case TA_NONE:
             return;
@@ -98,7 +100,7 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
         case TA_DPAD:
             row = 0;
             row |= dpad_detect(axis);
-            matrix[MATRIX_ROWS - TA_INPUTS + id] = row;
+            write_row(row, (MATRIX_ROWS-TA_INPUTS)+id);
             break;
         case TA_ROTARY:
             ta_rotary(axis);

@@ -44,6 +44,9 @@ typedef  uint32_t   matrix_col_t;
 #define MATRIX_IS_ON(row, col)  (matrix_get_row(row) && (1<<col))
 
 
+//#define MATRIX_WRITE_ROW
+void write_row(matrix_row_t row_data, uint8_t row_id);
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -1,7 +1,8 @@
-#ifndef FNH_H
-#define FNH_H
+#pragma once
 
-// Used to create a keymap using only KC_ prefixed keys
+#include "quantum.h"
+#include "twoaxis.h"
+
 #define LAYOUT_dpad_8( \
     L00, L01, L02, L03, L04,                           R00, R01, R02, R03, R04, D00, D01, D02, \
     L10, L11, L12, L13, L14,                           R10, R11, R12, R13, R14, D10,      D12, \
@@ -36,7 +37,4 @@
         { KC_NO, KC_NO, R32, R31, R30 }, \
         { KC_NO, D01, KC_NO, D10, D12, KC_NO, D21, KC_NO}\
     }
-#include "quantum.h"
-#include "twoaxis.h"
 
-#endif

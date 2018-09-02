@@ -32,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 
-#include "matrix_share.h"
-
 #  include "serial.h"
 
 #ifndef DEBOUNCE
@@ -50,7 +48,7 @@ static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
-matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static matrix_row_t read_cols(void);
@@ -258,3 +256,10 @@ static void select_row(uint8_t row)
     _SFR_IO8((row_pins[row] >> 4) + 1) |=  _BV(row_pins[row] & 0xF);
     _SFR_IO8((row_pins[row] >> 4) + 2) &= ~_BV(row_pins[row] & 0xF);
 }
+
+#ifdef MATRIX_WRITE_ROW
+void write_row(matrix_row_t row_data, uint8_t row_id)
+{
+    matrix[row_id] = row_data;
+}
+#endif

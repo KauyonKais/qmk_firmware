@@ -1,10 +1,9 @@
 //
 // Created by Kauyon Kais on 19.06.2018.
 //
-
 #pragma once
-
 #include <stdint.h>
+#include "matrix.h"
 //DPAD positions
 #define DPAD_C  0b00000000
 #define DPAD_UL 0b10000000
@@ -15,6 +14,7 @@
 #define DPAD_DL 0b00000100
 #define DPAD_D  0b00000010
 #define DPAD_DR 0b00000001
+
 
 // Twoaxis modes
 #define TA_NONE 0
@@ -31,7 +31,7 @@
 #   define TA_DPAD_CORNER 90
 #endif
 #ifndef TA_DPAD_SIDE
-#   define TA_DPAD_SIDE 75
+#   define TA_DPAD_SIDE 70
 #endif
 #ifndef TA_MOUSE_THROTTLE
 # define TA_MOUSE_THROTTLE 3
@@ -43,10 +43,16 @@
 void twoaxis_task(void);
 void twoaxis(int8_t x, int8_t y, uint8_t id);
 void ta_setmode(uint8_t ta_mode);
+int8_t ta_convert_10bit(uint16_t val);
+int8_t ta_convert_12bit(uint16_t val);
 
 // TODO:
 // rework matrix so it doesn't break everythingf
 // document everything (HAH AS IF)
+// bitshift needs to work with any row_t type
+
+// mouse curve AFTER TESTING
+
 
 // DONE mouse and scroll
 // DONE  hitboxes for dpad8

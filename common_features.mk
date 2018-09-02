@@ -224,3 +224,11 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                 $(QUANTUM_DIR)/split_common/i2c.c \
                 $(QUANTUM_DIR)/split_common/serial.c  
 endif
+
+ifeq ($(strip $(TWOAXIS_ENABLE)), yes)
+	OPT_DEFS += -DMOUSE_ENABLE
+	OPT_DEFS += -DTWOAXIS_ENABLE
+	OPT_DEFS += -DMATRIX_WRITE_ROW
+	SRC += $(QUANTUM_DIR)/pointing_device.c \
+	    $(QUANTUM_DIR)/twoaxis.c
+endif

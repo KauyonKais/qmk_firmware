@@ -13,9 +13,9 @@
 
 void twoaxis_task(void){
 //mouseReport.x = 127 max -127 min
-    int8_t x = (analogRead(3)>>2)-128;
+    int8_t x = ta_convert_10bit(analogRead(3));
 //mouseReport.y = 127 max -127 min
-    int8_t y = (analogRead(2)>>2)-128;
+    int8_t y = ta_convert_10bit(analogRead(2));
 
    twoaxis(-x + TA_X_ADJUST, y + TA_Y_ADJUST, 0);//calls twoaxis entry point, agnostic from here
    //-x because my x is mirrored for some reason. This might depend on the device used
