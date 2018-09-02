@@ -15,12 +15,14 @@
 #define DPAD_DL 0b00000100
 #define DPAD_D  0b00000010
 #define DPAD_DR 0b00000001
+
 // Twoaxis modes
 #define TA_NONE 0
 #define TA_MOUSE 2
 #define TA_SCROLL 3
 #define TA_DPAD 4
-#define TA_ROTARY 5
+#define TA_ROTARY 5 //currently not doing anything
+
 //standard values
 #ifndef TA_DEADZONE
 #   define TA_DEADZONE 20
@@ -35,21 +37,17 @@
 # define TA_MOUSE_THROTTLE 3
 #endif
 #ifndef TA_SCROLL_THROTTLE
-# define TA_SCROLL_THROTTLE 30
+# define TA_SCROLL_THROTTLE 40
 #endif
 
 void twoaxis_task(void);
 void twoaxis(int8_t x, int8_t y, uint8_t id);
 void ta_setmode(uint8_t ta_mode);
-void dpad(void);
-void twoaxis_as_scroll(void);
-void twoaxis_as_mouse(void);
 
 // TODO:
-// rework matrix so it doesn't break everything
-// mouse and scroll
-// rotary
+// rework matrix so it doesn't break everythingf
 // document everything (HAH AS IF)
 
+// DONE mouse and scroll
 // DONE  hitboxes for dpad8
 // DONE deadzone

@@ -6,60 +6,14 @@
 #include "report.h"
 #include "matrix_share.h"
 #include "pointing_device.h"
+
 #include <print.h>
+
 struct ta_axis{
     int8_t x;
     int8_t y;
 };
-/*
-static int8_t absolute(int8_t i){
-    uint8_t temp = i >> 7;
-    i ^= temp;
-    i += temp & 1;
-    return i;
-}
-static void print_val(int8_t val){
-    if(val<0)
-        print("-");
-    val=absolute(val);//10;
-    switch (val){
-        case 0:
-            print("0");
-            break;
-        case 1:
-            print("10");
-            break;
-        case 2:
-            print("20");
-            break;
-        case 3:
-            print("30");
-            break;
-        case 4:
-            print("40");
-            break;
-        case 5:
-            print("50");
-            break;
-        case 6:
-            print("60");
-            break;
-        case 7:
-            print("70");
-            break;
-        case 8:
-            print("80");
-            break;
-        case 9:
-            print("90");
-            break;
-        case 10:
-            print("100");
-            break;
-        case 11:
-            print("110");
-    }
-}*/
+
 static uint8_t dpad_detect(struct ta_axis values){
     /*if(values.x < 60 && values.x > -60 && values.y < 60 && values.y > -60){
         return DPAD_C;
@@ -108,6 +62,11 @@ static void ta_mouse( struct ta_axis axis) {
     pointing_device_set_report(currentReport);
     pointing_device_send();
 }
+
+static void ta_rotary(struct ta_axis axis){
+    return;
+}
+
 static uint8_t ta_mode = TA_NONE;
 
 void ta_setmode(uint8_t mode){
@@ -115,13 +74,17 @@ void ta_setmode(uint8_t mode){
 }
 
 void twoaxis(int8_t x, int8_t y, uint8_t id){
+    //To make sure we don't start writing in weird places
     if(!(id<TA_INPUTS))
         return;
+
     static uint8_t row;
+    //
     if(x < TA_DEADZONE && x > -TA_DEADZONE)
         x=0;
     if(y < TA_DEADZONE && y > -TA_DEADZONE)
         y=0;
+
     struct ta_axis axis = {x, y};
     switch(ta_mode){
         case TA_NONE:
@@ -137,99 +100,9 @@ void twoaxis(int8_t x, int8_t y, uint8_t id){
             row |= dpad_detect(axis);
             matrix[MATRIX_ROWS - TA_INPUTS + id] = row;
             break;
+        case TA_ROTARY:
+            ta_rotary(axis);
         default:
             return;
     }
 }
-
-
-/*
-void twoaxis_as_mouse(void){
-    struct ta_axis  values = read_stick_values();
-    report_mouse_t currentReport = {};
-    currentReport = pointing_device_get_report();
-    //shifting and transferring the info to the mouse report variable
-    currentReport.x=values.x;
-    currentReport.y=values.y;
-    currentReport.buttons = 0x00;
-    pointing_device_set_report(currentReport);
-    pointing_device_send();
-}
-
-void twoaxis_as_scroll(void){
-    struct ta_axis  values = read_stick_values();
-    report_mouse_t currentReport = {};
-    currentReport = pointing_device_get_report();
-    //shifting and transferring the info to the mouse report variable
-    currentReport.h=values.x;
-    currentReport.v=values.y;
-    currentReport.buttons = 0x00;
-    pointing_device_set_report(currentReport);
-    pointing_device_send();
-}
-
-static int8_t absolute(int8_t i){
-    uint8_t temp = i >> 7;
-    i ^= temp;
-    i += temp & 1;
-    return i;
-}
-
-
-
-uint8_t twoaxis_as_dpad(void){
-    struct ta_axis  values = read_stick_values();
-    if(absolute(values.x)<5 && values.y>5) {
-        return DPAD_U;
-    }
-     if(absolute(values.x)>5 && values.y<-5) {
-        return DPAD_D;
-    }
-    if(values.x<-5 && absolute(values.y)<5) {
-        return DPAD_L;
-    }
-    if(values.x>5 && absolute(values.y)<5) {
-        return DPAD_R;
-    }
-    return  0;
-}
-
-
-static uint8_t joymap[6][4] = {
-        {KC_U, KC_L, KC_R, KC_D},
-        {},
-        {KC_W, KC_A, KC_S, KC_D},
-        {},{},{}
-};
-
-static uint8_t ta_layer=0;
-void set_ta_layer(uint8_t l){
-    ta_layer=l;
-}
-
-void dpad(void){
-    static uint8_t ta_state=0;
-    ta_state = twoaxis_as_dpad();
-    switch (ta_state){
-        case DPAD_U:
-            register_code(joymap[ta_layer][0]);
-            register_code(joymap[ta_layer][0]);
-            break;
-        case DPAD_R:
-            register_code(joymap[ta_layer][1]);
-            register_code(joymap[ta_layer][1]);
-            break;
-        case DPAD_L:
-            register_code(joymap[ta_layer][2]);
-            register_code(joymap[ta_layer][2]);
-            break;
-        case DPAD_D:
-            register_code(joymap[ta_layer][3]);
-            register_code(joymap[ta_layer][3]);
-            break;
-        case DPAD_DEAD:
-            break;
-        default:
-            break;
-    }
-}*/
