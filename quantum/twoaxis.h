@@ -47,13 +47,14 @@ int8_t ta_convert_10bit(uint16_t val);
 int8_t ta_convert_12bit(uint16_t val);
 
 // TODO:
-// rework matrix so it doesn't break everythingf
 // document everything (HAH AS IF)
-// bitshift needs to work with any row_t type
+// method to access from keymap.c (like matrix_scan_user)
 
 // mouse curve AFTER TESTING
 
 
+// DONE bitshift needs to work with any row_t type
+// DONE rework matrix so it doesn't break everythingf
 // DONE mouse and scroll
 // DONE  hitboxes for dpad8
 // DONE deadzone
