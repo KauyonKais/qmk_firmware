@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
- 
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
- 
+
 // Windows based definitions.
 #define K_SPCFN LT(SYMB, KC_SPACE) // Tap for space, hold for symbols layer
 #define K_PRVWD LCTL(KC_LEFT)      // Previous word
@@ -28,13 +28,13 @@
 #define CUT     LCTL(KC_X)         // CUT
 #define COPY    LCTL(KC_C)         // COPY
 #define PASTE   LCTL(KC_V)         // PASTE
- 
- 
+
+
 #define BASE 0 // Default
 #define NUMB 1 // Numbers
 #define SYMB 2 // Symbols
 #define CURS 3 // Text Editing
- 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT( /* Base */
   KC_ESC,  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    DF(1),   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_PLUS,
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET,   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,          _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_VOLD,          KC_VOLU, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  _______, KC_PLUS, KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_MPRV, KC_MPLY, KC_MNXT, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, KC_QUOT,
+  _______, KC_PLUS, KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_MPRV, KC_MPLY, KC_MNXT, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, KC_BSLS, _______,
   _______, _______, _______, _______,                   KC_DEL,  _______, _______,          _______, _______, _______, _______, _______
     ),
 [CURS] = LAYOUT(
@@ -64,15 +64,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, UNDO,    CUT,     COPY,    PASTE,   _______, _______, _______, _______, _______, K_LSTRT, _______, K_LEND,  _______, _______,
   _______, _______, _______, _______,                   _______, _______, _______,          _______, _______, _______, _______, _______
     )
- 
+
 };
- 
- 
+
+
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_TAP_KEY(CURS, KC_BSPC),
     [1] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPACE),
 };
- 
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -87,20 +87,20 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
- 
- 
+
+
 void matrix_init_user(void) {
- 
+
 }
- 
+
 void matrix_scan_user(void) {
- 
+
 }
- 
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
- 
+
 void led_set_user(uint8_t usb_led) {
- 
+
 }
