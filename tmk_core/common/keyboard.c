@@ -66,6 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef POINTING_DEVICE_ENABLE
 #   include "pointing_device.h"
 #endif
+#ifdef TWOAXIS_ENABLE
+#   include "twoaxis.h"
+#endif
 #ifdef MIDI_ENABLE
 #   include "process_midi.h"
 #endif
@@ -293,6 +296,10 @@ MATRIX_LOOP_END:
 
 #ifdef POINTING_DEVICE_ENABLE
     pointing_device_task();
+#endif
+
+#ifdef TWOAXIS_ENABLE
+    twoaxis_task();
 #endif
 
 #ifdef MIDI_ENABLE
