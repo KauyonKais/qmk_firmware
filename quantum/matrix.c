@@ -387,3 +387,9 @@ static void unselect_cols(void)
 }
 
 #endif
+#ifdef MATRIX_WRITE_ROW
+void write_row(matrix_row_t row_data, uint8_t row_id)
+{
+    matrix[row_id] = row_data;
+}
+#endif
