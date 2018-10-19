@@ -45,16 +45,3 @@ void twoaxis(int8_t x, int8_t y, uint8_t id);
 void ta_setmode(uint8_t ta_mode);
 int8_t ta_convert_10bit(uint16_t val);
 int8_t ta_convert_12bit(uint16_t val);
-
-// TODO:
-// document everything (HAH AS IF)
-// method to access from keymap.c (like matrix_scan_user)
-
-// mouse curve AFTER TESTING
-
-
-// DONE bitshift needs to work with any row_t type
-// DONE rework matrix so it doesn't break everythingf
-// DONE mouse and scroll
-// DONE  hitboxes for dpad8
-// DONE deadzone
