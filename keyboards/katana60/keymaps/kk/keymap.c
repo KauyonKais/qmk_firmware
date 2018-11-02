@@ -47,10 +47,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,   KC_LGUI, KC_LALT, KC_ENT,                   KC_TRNS, KC_RALT,  KC_TRNS,          TG(_QWY),KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 ),
 [_SYB] = LAYOUT(
-  _______, _______, _______, _______, _______, _______, _______, RESET,   KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______, _______,
-  _______, KC_LPRN , KC_RPRN, KC_ASTR, KC_AMPR, KC_GRV, _______,          _______,   KC_PLUS ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0 , _______,
-  _______, KC_LBRC , KC_CIRC, KC_PERC, KC_DLR ,KC_PIPE, _______,          _______,    KC_EQL  ,  KC_4  ,  KC_5  ,  KC_6 , KC_RBRC, _______,
-  _______,KC_LCBR , KC_HASH, KC_AT  , KC_EXLM, KC_TILD, _______, _______, _______,    KC_MINS ,  KC_1  ,  KC_2  ,  KC_3 , KC_RCBR, _______,
+  _______, RGB_TOG, RGB_MOD, RGB_TOG, _______, _______, _______, RESET,   KC_PSLS, KC_PAST, KC_PMNS, _______, _______, _______, _______,
+  _______, KC_LPRN , KC_RPRN, KC_ASTR, KC_AMPR, KC_GRV, RGB_HUI,          RGB_HUD,   KC_PLUS ,  KC_7  ,  KC_8  ,  KC_9  ,  KC_0 , _______,
+  _______, KC_LBRC , KC_CIRC, KC_PERC, KC_DLR ,KC_PIPE, RGB_SAI,          RGB_SAD,    KC_EQL  ,  KC_4  ,  KC_5  ,  KC_6 , KC_RBRC, _______,
+  _______,KC_LCBR , KC_HASH, KC_AT  , KC_EXLM, KC_TILD, RGB_VAI, _______, RGB_VAD,    KC_MINS ,  KC_1  ,  KC_2  ,  KC_3 , KC_RCBR, _______,
   _______, _______, _______, _______,                   _______, _______, _______,            KC_PDOT, KC_PENT, _______, _______, _______
     ),
 [_GAM] = LAYOUT( /* Base */

@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+yinclude QMK_KEYBOARD_H
 
 #define SPC_F1 LT(1,KC_SPC)
 #define BS_F2 LT(2,KC_BSPC)
