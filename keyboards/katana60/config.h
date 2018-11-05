@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 15
 
 #define RGB_DI_PIN D5
-#define RGBLED_NUM 1
+#define RGBLED_NUM 5
 
 /*
  * Keyboard Matrix Assignments

@@ -62,3 +62,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _GAM:
+        rgblight_setrgb(20,0,0);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0x00, 0x00);
+        break;
+    }
+  return state;
+}
+
+
