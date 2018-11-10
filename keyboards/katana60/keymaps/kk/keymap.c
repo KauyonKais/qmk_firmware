@@ -34,7 +34,7 @@ enum fnh_layers {
 
 // Windows based definitions.
 #define MD_SPC MT(MOD_LSFT, KC_BSPC)
-#define MD_DSP LT(LM(_DSF, KC_LSFT), KC_BSPC)
+#define MD_DSP LT(_DSF, KC_BSPC)
 #define MD_Z MT(MOD_LCTL, KC_Z)
 #define MD_X MT(MOD_LGUI,KC_X)
 #define MD_C MT(MOD_LALT,KC_C)
@@ -80,8 +80,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_DSF] = LAYOUT( /*Shifted Layer for German*/
   _______, _______, DE_EXLM, DE_AT  , DE_HASH, DE_DLR , DE_PERC, _______, DE_CIRC, DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, 	      _______, _______, _______, _______, _______, _______, DE_DQOT,
-  _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, 	      _______, _______, _______, _______, _______, DE_COLN, _______,
+  _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, DE_DQOT,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DE_LESS, DE_MORE, DE_QST , _______,
   _______, _______, _______, _______,					_______, _______, _______,			_______, _______, _______, _______, _______
     ),
@@ -109,6 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
+    uint8_t mods = get_mods();
+    uint8_t shift = MOD_BIT(KC_LSFT);
     switch (biton32(state)) {
     case _GAM:
         rgblight_setrgb(20,0,0);
@@ -116,9 +118,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 	case _QWY:
 		rgblight_setrgb(0,0,20);
 		break;
-	case _DBS:
 	case _DSF:
+		rgblight_setrgb(0,40,0);
+        set_mods(mods|shift);
+        break;
+	case _DBS:
 	case _DSY:
+        set_mods(mods&~shift);
 		rgblight_setrgb(0,40,0);
 		break;
 	case _DQW:
@@ -131,20 +137,22 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    uint8_t mods = get_mods();
+    uint8_t shift = MOD_BIT(KC_LSFT);
     if (record->event.pressed) {
         switch(keycode) {
-            case KC_NUBS:
-				set_mods(get_mods()&(~MOD_BIT(KC_LSFT)));
+            case DE_LESS:
+                set_mods(mods&~shift);
                 //unshift, key
-                return false;
+                return true;
         }
 	}
 	else{
 		switch(keycode) {
-			case KC_NUBS:
-				set_mods(get_mods()|MOD_BIT(KC_LSFT));
+			case DE_LESS:
+                set_mods(mods|shift);
 			//reshift
-			return false;
+			return true;
 		}
 	}
     
