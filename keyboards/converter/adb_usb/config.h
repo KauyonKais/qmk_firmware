@@ -13,6 +13,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Ported to QMK by Peter Roe <pete@13bit.me>
 */
 
 #pragma once
@@ -20,25 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0ADB
 #define DEVICE_VER      0x0101
-#define MANUFACTURER    qmk
+#define MANUFACTURER    QMK
 #define PRODUCT         ADB keyboard converter
-#define DESCRIPTION     convert ADB keyboard to USB
+#define DESCRIPTION     Convert ADB keyboard to USB
 
 /* matrix size */
 #define MATRIX_ROWS 16  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
-#define MATRIX_ROW(code)    ((code)>>3&0x0F)
-#define MATRIX_COL(code)    ((code)&0x07)
-#define MATRIX_COL_PINS {}
-#define MATRIX_ROW_PINS {}
-
-
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
 
 /* ADB port setting */
 #define ADB_PORT        PORTD
@@ -46,11 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ADB_DDR         DDRD
 #define ADB_DATA_BIT    0
 //#define ADB_PSW_BIT     1       // optional
-
-/* key combination for command */
-#ifndef __ASSEMBLER__
-#define IS_COMMAND() ( \
-    matrix_is_on(MATRIX_ROW(ADB_POWER), MATRIX_COL(ADB_POWER)) \
-)
-#endif
-

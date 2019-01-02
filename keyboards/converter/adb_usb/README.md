@@ -1,12 +1,16 @@
-ADB to USB keyboard converter
+ADB-to USB Keyboard Converter
 =============================
-Based on the [TMK](https://github.com/tmk/tmk_keyboard/tree/master/converter/adb_usb) converter.
-This firmware converts Apple ADB keyboard protocol to USB, you can use it to plug old ADB keyboard into modern computer.
+This firmware converts Apple Desktop Bus (ADB) keyboard protocol to USB so that you can use an ADB keyboard on a modern computer. It works on the PJRC Teensy 2.0 and other USB AVR MCUs (ATMega32U4, AT90USB64/128, etc) and needs at least 10KB of flash memory.
+
+
+This is a port of the TMK ADB-to-USB converter to QMK. For information on QMK, please consult the following:
+https://github.com/qmk/qmk_firmware  
+https://docs.qmk.fm
 
 
 Wiring
 ------
-Connect ADB pins to controller just by 3 lines(Vcc, GND, Data). By default Data line uses port PD0.
+Connect the VCC, GND, and DATA lines of the ADB keyboard to the controller (Teensy 2.0 or similar). By default the DATA line uses port PD0. The Power SW line is unused by the converter.
 
 ADB female socket from the front:
 
@@ -16,13 +20,11 @@ ADB female socket from the front:
      -  ===  -      3: VCC
       `-___-'       4: GND
 
-The female socket's pcb might also have the pin numbers printed on next to the wire.  
- 
-This converter uses AVR's internal pull-up, but it seems to be too weak, in particular when you want to use a long or coiled cable. The external pull-up resistor(1K-10K Ohm) on Data is necessary.
+This converter uses AVR's internal pull-up, but it seems to be too weak, in particular when you want to use a long or coiled cable. Using an external pull-up resistor (1K-10K Ohm) between the DATA and VCC lines is strongly recommended.
 
-Pull-up resister:
+Pull-up resistor:
 
-    Keyboard       Conveter
+    Keyboard       Converter
                    ,------.
     5V------+------|VCC   |
             |      |      |
@@ -35,32 +37,47 @@ Pull-up resister:
     R: 1K Ohm resistor
 
 
-Define following macros for ADB connection in config.h if you use other than port PD0 (Pin3 on the ProMicro).
+Define following macros for ADB connection in config.h if you use other than port PD0.
 
     ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 
 
+Building the Firmware
+------------------------------------------
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+
 Keymap
 ------
-Predefined keymaps are in the *iso* and *ansi* folders.
-For your own keymap, use `LAYOUT_EXT_ISO` or `LAYOUT_EXT_ANSI` respectively. Any qmk keycode will work.
+To build the default keymap run this command:
+
+    $ make converter/adb_usb:default
+
+You may add your own keymap to the converter/adb_usb/keymaps directory, as you would with any other QMK-powered keyboard.
+
+To build your custom keymap, change the build command to:
+
+    $ make converter/adb_usb:my_keymap
+
+Where 'my_keymap' is the name of your custom keymap directory.
 
 
-Locking CapsLock
+Locking Caps Lock
 ----------------
-Many of old ADB keyboards have mechanical push-lock switch for Capslock key and this converter supports the locking Capslock key by default using the `KC_LCAP` keycode.
-
-Also you may want to remove locking pin from the push-lock switch to use capslock as a normal momentary switch.
+Many old ADB keyboards use a locking switch for the caps lock key. This converter supports the locking caps lock key by default.
 
 
 Notes
 -----
-Not-extended ADB keyboards have no discrimination between right modifier and left one,
-you will always see left control even if you press right control key.
-Apple Extended Keyboard and Apple Extended Keyboard II can discriminate both side
-modifiers except for GUI key(Windows/Command).
+Non-extended ADB keyboards make no distinction between the left and right modifiers,
+i.e. the keycode for the left modifier will be sent even if the right modifier
 
-And most ADB keyboard has no diodes in its matrix so they are not NKRO,
-though ADB protocol itself supports it.
+The Apple Extended Keyboard and Apple Extended Keyboard II can differentiate between the left and right modifiers except for the GUI key (Windows/Command).
 
-If keyboard has ISO layout you may have swapped keys problem (\` and / on UK ISO). Adjust the layout definition in adb_usb.h if necessary.
+Most ADB keyboards have no diodes in its matrix so they are not NKRO,
+though the ADB protocol itself supports it. See protocol/adb.c for more info.
+
+
+QMK Port Changelog
+---------
+- 2018/09/16 - Initial release.
