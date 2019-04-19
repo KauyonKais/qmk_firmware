@@ -24,10 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* Use I2C or Serial, not both */
-
-#define USE_SERIAL
-
 #define IGNORE_MOD_TAP_INTERRUPT
 
 /* Select hand configuration */
@@ -35,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
+
+#define SOFT_SERIAL_PIN D0
 
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 5
