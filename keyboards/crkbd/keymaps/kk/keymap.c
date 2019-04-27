@@ -127,6 +127,8 @@ const char *read_logo(void);
 void set_keylog(int16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
+void add_keylog(int16_t keycode);
+void update_log(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -135,6 +137,7 @@ const char *read_keylogs(void);
 
 void matrix_scan_user(void) {
    oled_task();
+   update_log();
 }
 
 void matrix_render_user(void) {
@@ -162,7 +165,8 @@ void oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 //#ifdef OLED_DRIVER_ENABLE
-        set_keylog(keycode, record);
+        //set_keylog(keycode, record);
+        add_keylog(keycode);
         oled_on();
         // set_timelog();
 //#endif //OLED_DRIVER_ENABLE

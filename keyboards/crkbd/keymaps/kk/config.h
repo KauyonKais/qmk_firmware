@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define USE_SERIAL_PD2
-
 #define OLED_FONT_H "drifterfont.c"
 
 //#define TAPPING_FORCE_HOLD
@@ -53,5 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_KEYPRESSES
 #endif
 
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #undef USE_I2C
