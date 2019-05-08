@@ -153,7 +153,8 @@ void matrix_render_user(void) {
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
   } else {
-    oled_write_P(read_logo(), false);
+    //oled_write(read_keylog() , false);
+    //oled_write_P(read_logo(), false);
   }
 }
 
@@ -169,6 +170,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         add_keylog(keycode);
         oled_on();
         // set_timelog();
+        switch(keycode){
+            case RGB_MOD:
+            case RGB_RMOD:
+                oled_write_P("Hello World", false);
+                break;
+        }
 //#endif //OLED_DRIVER_ENABLE
     }
 
