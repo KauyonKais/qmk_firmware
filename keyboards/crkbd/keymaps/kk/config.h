@@ -50,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #define RGBLED_SPLIT { 27, 27 }
 #define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #endif
 
 #define TAPPING_TERM 200
